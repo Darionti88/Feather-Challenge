@@ -9,6 +9,7 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
+import "@popsure/dirty-swan/dist/index.css";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
