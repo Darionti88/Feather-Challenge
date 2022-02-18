@@ -1,5 +1,7 @@
 import { ApolloServer, gql } from "apollo-server";
+import { ExpressionWithTypeArguments, HasTypeArguments } from "typescript";
 import dateScalar from "./dateScalar";
+import { lowerCasedValues } from "./helpers/getLowercasedValues";
 import { policies } from "./mockData";
 
 const typeDefs = gql`
@@ -37,6 +39,7 @@ const typeDefs = gql`
   type Query {
     policiesCount: Int!
     allPolicies: [Policy]!
+    filterPolicies(filter: String): [Policy]!
   }
 `;
 
@@ -47,6 +50,26 @@ const resolvers = {
   Query: {
     policiesCount: () => policies.length,
     allPolicies: () => policies,
+    filterPolicies: (parent: ParentNode, args: { filter: string }) => {
+      if (args.filter) {
+        const filteredPolicies = policies?.filter((policy) => {
+          const customerValues: (string | undefined)[] = lowerCasedValues(
+            policy.customer
+          );
+          const policiesValues: (string | undefined)[] =
+            lowerCasedValues(policy);
+          let allValuesArr: (string | Date | undefined)[] = [
+            ...policiesValues,
+            ...customerValues,
+          ];
+          if (allValuesArr.includes(args.filter.toLowerCase())) {
+            return policy;
+          }
+        });
+        return filteredPolicies;
+      }
+      return policies;
+    },
   },
 };
 

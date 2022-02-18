@@ -19,6 +19,24 @@ export const ALL_POLICIES = gql`
     policiesCount
   }
 `;
+export const FILTERED_POLICIES = gql`
+  query filterPolicies($filter: String) {
+    filterPolicies(filter: $filter) {
+      customer {
+        firstName
+        lastName
+        dateOfBirth
+      }
+      provider
+      insuranceType
+      status
+      policyNumber
+      startDate
+      endDate
+      createdAt
+    }
+  }
+`;
 
 export const POLICY_ENUMS = gql`
   {
