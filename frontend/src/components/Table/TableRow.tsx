@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { AllPolicy } from "../../interfaces/allPolicies.interface";
+import { Input } from "@popsure/dirty-swan";
 
 const TableRow = (policy: AllPolicy) => {
   return (
@@ -18,9 +19,11 @@ const TableRow = (policy: AllPolicy) => {
         </span>
       </td>
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
-        <span className='p-1.5 text-xs font-medium uppercase tracking-wider text-text bg-featherGreen rounded-lg bg-opacity-50'>
-          {policy.status}
-        </span>
+        {
+          <span className='p-1.5 text-xs font-medium uppercase tracking-wider text-text bg-featherGreen rounded-lg bg-opacity-50'>
+            {policy.status}
+          </span>
+        }
       </td>
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
         {policy.policyNumber}

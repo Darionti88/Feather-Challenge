@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TableRow from "./TableRow";
 import { Policies } from "../../interfaces/allPolicies.interface";
 import { formatString } from "../../helpers/formatString";
