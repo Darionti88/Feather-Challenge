@@ -22,7 +22,7 @@ const Table = ({ headers, data }: Props) => {
           </tr>
         </thead>
         <tbody className='divide-y divide-gray-100'>
-          {data.allPolicies.map((policy) => (
+          {data?.allPolicies.map((policy) => (
             <TableRow {...policy} />
           ))}
         </tbody>

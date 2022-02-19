@@ -14,7 +14,7 @@ function App() {
   const headers: string[] = policies?.allPolicies.reduce(
     (acc: string[], curr) => {
       if (policies.allPolicies.indexOf(curr) === 0) {
-        return Object.keys(curr);
+        return Object.keys(curr).slice(1);
       }
       return acc;
     },
@@ -24,7 +24,7 @@ function App() {
   return (
     <div className='flex flex-col space-y-10 container mx-auto h-screen'>
       <Navbar />
-      <Table headers={headers.slice(1)} data={data} />
+      <Table headers={headers} data={data} />
     </div>
   );
 }
