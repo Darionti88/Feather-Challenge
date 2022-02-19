@@ -2,6 +2,7 @@ import React from "react";
 import { AllPolicy } from "../../interfaces/allPolicies.interface";
 
 const TableRow = (policy: AllPolicy) => {
+  console.log(policy.startDate);
   return (
     <tr className='bg-gray-50'>
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
