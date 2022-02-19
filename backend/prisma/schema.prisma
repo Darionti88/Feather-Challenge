@@ -1,0 +1,52 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DB")
+  planetScaleMode      = true
+  referentialIntegrity = "prisma"
+}
+
+enum Status {
+  ACTIVE
+  PENDING
+  CANCELLED
+  DROPPED_OUT
+}
+
+enum InsuranceType {
+  LIABILITY
+  HOUSEHOLD
+  HEALTH
+}
+
+model Policy {
+  policyNumber  Int           @id @unique @default(autoincrement())
+  provider      String
+  status        Status
+  insuranceType InsuranceType
+  startDate     DateTime
+  endDate       DateTime
+  createdAt     DateTime
+  customer      Customer?
+
+}
+
+model Customer {
+  firstName   String
+  lastName    String
+  dateOfBirth DateTime
+  policy      Policy   @relation(fields: [policyId], references: [policyNumber], onUpdate: NoAction)
+  policyId    Int      @unique
+
+
+
+  @@index([policyId])
+  @@map("customer")
+}

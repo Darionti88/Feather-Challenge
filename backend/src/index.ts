@@ -1,6 +1,10 @@
 import { ApolloServer, gql } from "apollo-server";
+import { PrismaClient } from "@prisma/client";
+
 import dateScalar from "./dateScalar";
 import { policies } from "./mockData";
+
+const prisma = new PrismaClient();
 
 const typeDefs = gql`
   scalar Date
@@ -46,7 +50,12 @@ const resolvers = {
   Date: dateScalar,
   Query: {
     policiesCount: () => policies.length,
-    allPolicies: () => policies,
+    allPolicies: async () => {
+      const policies = await prisma.policy.findMany({
+        include: { customer: true },
+      });
+      return policies;
+    },
   },
 };
 
