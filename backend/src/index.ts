@@ -1,77 +1,20 @@
 import { ApolloServer, gql } from "apollo-server";
-import { ExpressionWithTypeArguments, HasTypeArguments } from "typescript";
+import { Sequelize } from "sequelize";
+import { initializeApp } from "firebase/app";
+import * as admin from "firebase-admin";
+import mysql from "mysql2";
 import dateScalar from "./dateScalar";
 import { lowerCasedValues } from "./helpers/getLowercasedValues";
 import { policies } from "./mockData";
+import { firebaseConfig } from "./config/firebase";
+import { typeDefs } from "./typeDefs/typeDefs";
+import { resolvers } from "./resolvers/resolvers";
 
-const typeDefs = gql`
-  scalar Date
-
-  type Policy {
-    customer: Customer
-    provider: String
-    insuranceType: InsuranceType
-    status: PolicyStatus
-    policyNumber: String
-    startDate: Date
-    endDate: Date
-    createdAt: Date
-  }
-
-  type Customer {
-    firstName: String
-    lastName: String
-    dateOfBirth: Date
-  }
-  enum InsuranceType {
-    LIABILITY
-    HOUSEHOLD
-    HEALTH
-  }
-
-  enum PolicyStatus {
-    ACTIVE
-    PENDING
-    CANCELLED
-    DROPPED
-  }
-
-  type Query {
-    policiesCount: Int!
-    allPolicies: [Policy]!
-    filterPolicies(filter: String): [Policy]!
-  }
-`;
-
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
-const resolvers = {
-  Date: dateScalar,
-  Query: {
-    policiesCount: () => policies.length,
-    allPolicies: () => policies,
-    filterPolicies: (parent: ParentNode, args: { filter: string }) => {
-      if (args.filter) {
-        const filteredPolicies = policies?.filter((policy) => {
-          const customerValues: (string | undefined)[] = lowerCasedValues(
-            policy.customer
-          );
-          const policiesValues: (string | undefined)[] =
-            lowerCasedValues(policy);
-          let allValuesArr: (string | Date | undefined)[] = [
-            ...policiesValues,
-            ...customerValues,
-          ];
-          if (allValuesArr.includes(args.filter.toLowerCase())) {
-            return policy;
-          }
-        });
-        return filteredPolicies;
-      }
-      return policies;
-    },
-  },
-};
+// const app = initializeApp(firebaseConfig);
+var serviceAccount = require("../serviceAccountKey.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 const server = new ApolloServer({ typeDefs, resolvers });
 

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TableRow from "./TableRow";
-import { AllPolicy, Policies } from "../../interfaces/allPolicies.interface";
 import { formatString } from "../../helpers/formatString";
 import { Button, Input } from "@popsure/dirty-swan";
-import { RefetchQueriesFunction, useLazyQuery } from "@apollo/client";
-import { FILTERED_POLICIES } from "../../graphql/querys";
 import { FilteredPolicies } from "../../interfaces/filteredPolicies";
 
 interface Props {
@@ -15,8 +12,12 @@ interface Props {
 
 const Table = ({ headers, data, refetch }: Props) => {
   const [searchInput, setSearchInput] = useState("");
-
-  if (!data) return null;
+  const handleKeypress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log(e);
+    if (e.code === "Enter") {
+      refetch({ filter: searchInput, offset: 0, limit: 5 });
+    }
+  };
 
   return (
     <div className='py-10 w-full'>
@@ -25,12 +26,13 @@ const Table = ({ headers, data, refetch }: Props) => {
           className='wmx5 mt8  w-full'
           placeholder='Search'
           value={searchInput}
+          onKeyPress={(e) => handleKeypress(e)}
           onChange={(e) => setSearchInput(e.target.value)}
         />
         <Button
           className='wmn3 mt8 ml-3'
           buttonTitle='Search'
-          onClick={() => refetch({ filter: searchInput })}
+          onClick={() => refetch({ filter: searchInput, offset: 0, limit: 5 })}
         />
       </div>
       <table className='w-full shadow-md'>
@@ -44,7 +46,7 @@ const Table = ({ headers, data, refetch }: Props) => {
           </tr>
         </thead>
         <tbody className='divide-y divide-gray-100'>
-          {data.filterPolicies.map((policy) => (
+          {data?.filterPolicies.map((policy) => (
             <TableRow {...policy} />
           ))}
         </tbody>
