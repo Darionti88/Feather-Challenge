@@ -16,7 +16,6 @@ export const ALL_POLICIES = gql`
       endDate
       createdAt
     }
-    policiesCount
   }
 `;
 
