@@ -3,6 +3,21 @@ import { gql } from "apollo-server";
 export const typeDefs = gql`
   scalar Date
 
+  input PolicyOrderByInput {
+    provider: Sort
+    insuranceType: Sort
+    status: Sort
+    policyNumber: Sort
+    startDate: Sort
+    endDate: Sort
+    createdAt: Sort
+  }
+
+  enum Sort {
+    asc
+    desc
+  }
+
   type Policy {
     customer: Customer
     provider: String
@@ -33,8 +48,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    policiesCount: Int!
     allPolicies: [Policy]!
+    sortedPolicies(orderBy: PolicyOrderByInput): [Policy!]
   }
 
   type Mutation {

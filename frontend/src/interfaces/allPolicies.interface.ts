@@ -2,7 +2,6 @@
 
 export interface Policies {
   allPolicies: AllPolicy[];
-  policiesCount: number;
 }
 
 export interface AllPolicy {
