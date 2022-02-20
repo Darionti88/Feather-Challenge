@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TableRow from "./TableRow";
 import arrowUp from "../../assets/icons/arrowUp.svg";
 import arrowDown from "../../assets/icons/arrowDown.svg";
@@ -7,33 +7,25 @@ import { useLazyQuery, useQuery } from "@apollo/client";
 import { ALL_POLICIES, SORTED_POLICIES } from "../../graphql/querys";
 import { useGetAllPolicies } from "../../hooks/useGetPolicies";
 import { Policies } from "../../interfaces/allPolicies.interface";
+import { getHeadersArray } from "../../helpers/headersArray";
 
 const Table = () => {
-  // const [insurancePolicies, setInsurancePolicies] = useState<Policies>();
-  // const { policies, refetch } = useGetAllPolicies();
-  const { data, refetch } = useQuery(ALL_POLICIES);
-  const policies: Policies = data;
+  const { policies, refetch } = useGetAllPolicies();
   const [getSortedPolicies, result] = useLazyQuery(SORTED_POLICIES);
   const [orderAsc, setOrderAsc] = useState<boolean>();
 
-  const headers: string[] | undefined = policies?.allPolicies.reduce(
-    (acc: string[], curr) => {
-      if (policies.allPolicies.indexOf(curr) === 0) {
-        return Object.keys(curr).slice(1);
-      }
-      return acc;
-    },
-    []
-  );
+  const headers: string[] = getHeadersArray(policies);
 
   const handleSort = (field: string) => {
     setOrderAsc((prev) => !prev);
-    const newOrder = {};
-    Object.defineProperty(newOrder, field, {
-      value: orderAsc ? "asc" : "desc",
+    let newOrder = {};
+    const key = field;
+    newOrder = { [key]: orderAsc ? "asc" : "desc" };
+    getSortedPolicies({
+      variables: {
+        orderBy: newOrder,
+      },
     });
-    console.log("newOrder", newOrder);
-    getSortedPolicies({ variables: { orderBy: newOrder } });
   };
 
   return (
