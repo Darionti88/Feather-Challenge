@@ -48,8 +48,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    policiesCount: Int!
-    allPolicies(orderBy: PolicyOrderByInput!): [Policy]!
+    allPolicies: [Policy]!
+    sortedPolicies(orderBy: PolicyOrderByInput): [Policy!]
   }
 
   type Mutation {

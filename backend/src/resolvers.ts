@@ -5,14 +5,21 @@ import dateScalar from "./dateScalar";
 export const resolvers = {
   Date: dateScalar,
   Query: {
-    async allPolicies(
+    async allPolicies() {
+      const policies = await context.prisma.policy.findMany({
+        include: { customer: true },
+      });
+      if (!policies) return [];
+      return policies;
+    },
+    async sortedPolicies(
       _: ParentNode,
       args: {
         orderBy: Prisma.Enumerable<Prisma.PolicyOrderByWithRelationInput>;
       }
     ): Promise<Policy[]> {
       const policies = await context.prisma.policy.findMany({
-        orderBy: args.orderBy,
+        orderBy: args.orderBy && args.orderBy,
         include: { customer: true },
       });
       if (!policies) return [];
