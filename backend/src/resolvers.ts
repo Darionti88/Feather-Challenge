@@ -27,13 +27,16 @@ export const resolvers = {
     },
   },
   Mutation: {
-    editStatus: async (
-      _parent: any,
-      args: { policyNumber: number; status: Status }
+    editPolicy: async (
+      _: ParentNode,
+      args: {
+        edit: any;
+        policyNumber: number;
+      }
     ) => {
       const policy = await context.prisma.policy.update({
         where: { policyNumber: args.policyNumber },
-        data: { status: args.status },
+        data: args.edit,
       });
       if (!policy) return null;
       return policy;
