@@ -18,9 +18,7 @@ const Table = () => {
 
   const handleSort = (field: string) => {
     setOrderAsc((prev) => !prev);
-    let newOrder = {};
-    const key = field;
-    newOrder = { [key]: orderAsc ? "asc" : "desc" };
+    const newOrder = { [field]: orderAsc ? "asc" : "desc" };
     getSortedPolicies({
       variables: {
         orderBy: newOrder,
@@ -30,7 +28,7 @@ const Table = () => {
 
   return (
     <div className='py-10'>
-      <table className='w-full '>
+      <table className='w-full shadow-lg'>
         <thead className='bg-gray-100 border-b-2 border-gray-200'>
           <tr>
             {headers?.map((header: string) => (
