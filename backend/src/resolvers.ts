@@ -18,9 +18,10 @@ export const resolvers = {
       if (!policies) return [];
       return policies;
     },
-    async getCustomer(_: ParentNode, args: { policyId: number }) {
-      const customer = await context.prisma.customer.findUnique({
-        where: { policyId: args.policyId },
+    async getPolicy(_: ParentNode, args: { policyNumber: number }) {
+      const customer = await context.prisma.policy.findUnique({
+        where: { policyNumber: args.policyNumber },
+        include: { customer: true },
       });
       return customer;
     },
