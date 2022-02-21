@@ -18,6 +18,16 @@ export const typeDefs = gql`
     desc
   }
 
+  input EditFieldByType {
+    provider: String
+    insuranceType: InsuranceType
+    status: PolicyStatus
+    policyNumber: Int
+    startDate: Date
+    endDate: Date
+    createdAt: Date
+  }
+
   type Policy {
     customer: Customer
     provider: String
@@ -44,15 +54,14 @@ export const typeDefs = gql`
     ACTIVE
     PENDING
     CANCELLED
-    DROPPED
+    DROPPED_OUT
   }
 
   type Query {
-    allPolicies: [Policy]!
-    sortedPolicies(orderBy: PolicyOrderByInput): [Policy!]
+    allPolicies(orderBy: PolicyOrderByInput): [Policy]!
   }
 
   type Mutation {
-    editStatus(policyNumber: Int!, status: PolicyStatus!): Policy!
+    editPolicy(edit: EditFieldByType, policyNumber: Int): Policy!
   }
 `;

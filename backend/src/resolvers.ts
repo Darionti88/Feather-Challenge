@@ -5,14 +5,7 @@ import dateScalar from "./dateScalar";
 export const resolvers = {
   Date: dateScalar,
   Query: {
-    async allPolicies() {
-      const policies = await context.prisma.policy.findMany({
-        include: { customer: true },
-      });
-      if (!policies) return [];
-      return policies;
-    },
-    async sortedPolicies(
+    async allPolicies(
       _: ParentNode,
       args: {
         orderBy: Prisma.Enumerable<Prisma.PolicyOrderByWithRelationInput>;
@@ -27,16 +20,35 @@ export const resolvers = {
     },
   },
   Mutation: {
-    editStatus: async (
-      _parent: any,
-      args: { policyNumber: number; status: Status }
+    editPolicy: async (
+      _: ParentNode,
+      args: {
+        edit: any;
+        policyNumber: number;
+      }
     ) => {
-      const policy = await context.prisma.policy.update({
-        where: { policyNumber: args.policyNumber },
-        data: { status: args.status },
-      });
-      if (!policy) return null;
-      return policy;
+      const fieldToEdit = "policyNumber" in args.edit;
+      if (fieldToEdit) {
+        await context.prisma.customer.update({
+          where: { policyId: args.policyNumber },
+          data: { policyId: args.edit.policyNumber },
+        });
+        const updatedPolicy = await context.prisma.policy.update({
+          where: { policyNumber: args.policyNumber },
+          data: args.edit,
+        });
+        if (!updatedPolicy) return null;
+
+        return updatedPolicy;
+      } else {
+        const updatedPolicy = await context.prisma.policy.update({
+          where: { policyNumber: args.policyNumber },
+          data: args.edit,
+        });
+        if (!updatedPolicy) return null;
+
+        return updatedPolicy;
+      }
     },
   },
 };
