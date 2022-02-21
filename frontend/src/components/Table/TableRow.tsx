@@ -6,6 +6,7 @@ import { EDIT_POLICY } from "../../graphql/mutations";
 import { ALL_POLICIES } from "../../graphql/querys";
 import TableField from "./TableField";
 import { EditState, FieldValue } from "../../interfaces/table.interface";
+import DateField from "./DateField";
 
 const TableRow = (policy: AllPolicy) => {
   const [edit, setEdit] = useState<EditState>({
@@ -73,9 +74,17 @@ const TableRow = (policy: AllPolicy) => {
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
         {policy.startDate}
       </td>
-      <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
-        {policy.endDate}
-      </td>
+      <DateField
+        editBoolean={edit.endDate}
+        editState={edit}
+        thisFieldValue={fieldValue.endDate}
+        setEdit={setEdit}
+        fieldValue={fieldValue}
+        setFieldValue={setFieldValue}
+        policyNumber={policy.policyNumber}
+        handleSave={handleSave}
+        thisField='endDate'
+      />
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
         {policy.createdAt}
       </td>

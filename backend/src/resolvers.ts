@@ -23,7 +23,7 @@ export const resolvers = {
     editPolicy: async (
       _: ParentNode,
       args: {
-        edit: any;
+        edit: { policyNumber: number; provider: string; endDate: Date };
         policyNumber: number;
       }
     ) => {
@@ -41,9 +41,11 @@ export const resolvers = {
 
         return updatedPolicy;
       } else {
+        const dateField = "endDate" in args.edit;
+        const formatToDate = new Date(args.edit.endDate);
         const updatedPolicy = await context.prisma.policy.update({
           where: { policyNumber: args.policyNumber },
-          data: args.edit,
+          data: dateField ? { endDate: formatToDate } : args.edit,
         });
         if (!updatedPolicy) return null;
 
