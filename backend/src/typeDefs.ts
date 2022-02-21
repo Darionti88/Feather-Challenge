@@ -59,6 +59,7 @@ export const typeDefs = gql`
 
   type Query {
     allPolicies(orderBy: PolicyOrderByInput): [Policy]!
+    getCustomer(policyId: Int): Customer!
   }
 
   type Mutation {

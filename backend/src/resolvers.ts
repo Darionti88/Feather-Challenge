@@ -18,6 +18,12 @@ export const resolvers = {
       if (!policies) return [];
       return policies;
     },
+    async getCustomer(_: ParentNode, args: { policyId: number }) {
+      const customer = await context.prisma.customer.findUnique({
+        where: { policyId: args.policyId },
+      });
+      return customer;
+    },
   },
   Mutation: {
     editPolicy: async (
