@@ -54,12 +54,11 @@ export const typeDefs = gql`
     ACTIVE
     PENDING
     CANCELLED
-    DROPPED
+    DROPPED_OUT
   }
 
   type Query {
-    allPolicies: [Policy]!
-    sortedPolicies(orderBy: PolicyOrderByInput): [Policy!]
+    allPolicies(orderBy: PolicyOrderByInput): [Policy]!
   }
 
   type Mutation {
