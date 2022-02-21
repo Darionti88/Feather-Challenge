@@ -1,22 +1,29 @@
 import { useGetEnums } from "../../hooks/useGetEnums";
 import { Dispatch, SetStateAction } from "react";
-import { NewValue } from "../../interfaces/table.interface";
+import { FieldValue } from "../../interfaces/table.interface";
 
 interface Props {
-  setNewValue: Dispatch<SetStateAction<NewValue>>;
-  newValue: NewValue;
+  setFieldValue: Dispatch<SetStateAction<FieldValue>>;
+  fieldValue: FieldValue;
   thisField: string;
+  thisFieldValue: string;
 }
 
-const Select = ({ setNewValue, newValue, thisField }: Props) => {
+const Select = ({
+  setFieldValue,
+  fieldValue,
+  thisField,
+  thisFieldValue,
+}: Props) => {
   const statusEnums = useGetEnums();
 
   return (
     <select
+      className='p-select'
       name={thisField}
-      id={thisField}
+      value={thisFieldValue}
       onChange={(e) =>
-        setNewValue({ ...newValue, [thisField]: e.target.value })
+        setFieldValue({ ...fieldValue, [thisField]: e.target.value })
       }>
       {statusEnums?.map((status: any) => (
         <option key={status.name} value={status.name}>

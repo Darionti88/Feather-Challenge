@@ -3,17 +3,16 @@ import { Dispatch, SetStateAction } from "react";
 export interface TableFieldProps {
   editBoolean: boolean;
   editState: EditState;
-  fieldData: string;
-  newValueData: string;
-  newValue: NewValue;
-  setNewValue: Dispatch<SetStateAction<NewValue>>;
+  thisFieldValue: string;
+  fieldValue: FieldValue;
+  setFieldValue: Dispatch<SetStateAction<FieldValue>>;
   setEdit: Dispatch<SetStateAction<EditState>>;
   policyNumber: string;
   handleSave: (field: string, fieldValue: string, policyNumber: string) => void;
   thisField: string;
 }
 
-export interface NewValue {
+export interface FieldValue {
   provider: string;
   status: string;
   endDate: string;

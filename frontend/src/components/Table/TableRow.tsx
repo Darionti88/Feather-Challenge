@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AllPolicy } from "../../interfaces/allPolicies.interface";
 
 import { useMutation } from "@apollo/client";
 import { EDIT_POLICY } from "../../graphql/mutations";
 import { ALL_POLICIES } from "../../graphql/querys";
 import TableField from "./TableField";
-import { EditState, NewValue } from "../../interfaces/table.interface";
+import { EditState, FieldValue } from "../../interfaces/table.interface";
 
 const TableRow = (policy: AllPolicy) => {
   const [edit, setEdit] = useState<EditState>({
@@ -13,10 +13,10 @@ const TableRow = (policy: AllPolicy) => {
     status: false,
     endDate: false,
   });
-  const [newValue, setNewValue] = useState<NewValue>({
-    provider: "",
-    status: "",
-    endDate: "",
+  const [fieldValue, setFieldValue] = useState<FieldValue>({
+    provider: policy.provider,
+    status: policy.status,
+    endDate: policy.endDate,
   });
 
   const [editPolicy] = useMutation(EDIT_POLICY, {
@@ -43,11 +43,10 @@ const TableRow = (policy: AllPolicy) => {
       <TableField
         editBoolean={edit.provider}
         editState={edit}
-        fieldData={policy.provider}
+        thisFieldValue={fieldValue.provider}
         setEdit={setEdit}
-        newValue={newValue}
-        newValueData={newValue.provider}
-        setNewValue={setNewValue}
+        fieldValue={fieldValue}
+        setFieldValue={setFieldValue}
         policyNumber={policy.policyNumber}
         handleSave={handleSave}
         thisField='provider'
@@ -60,11 +59,10 @@ const TableRow = (policy: AllPolicy) => {
       <TableField
         editBoolean={edit.status}
         editState={edit}
-        fieldData={policy.status}
+        thisFieldValue={fieldValue.status}
         setEdit={setEdit}
-        newValue={newValue}
-        newValueData={newValue.status}
-        setNewValue={setNewValue}
+        fieldValue={fieldValue}
+        setFieldValue={setFieldValue}
         policyNumber={policy.policyNumber}
         handleSave={handleSave}
         thisField='status'

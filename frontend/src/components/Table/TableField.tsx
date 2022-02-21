@@ -4,17 +4,14 @@ import saveSvg from "../../assets/icons/save.svg";
 import closeSvg from "../../assets/icons/close.svg";
 import { Input } from "@popsure/dirty-swan";
 import { TableFieldProps } from "../../interfaces/table.interface";
-import { useQuery } from "@apollo/client";
-import { POLICY_ENUMS } from "../../graphql/querys";
 import Select from "../Select/Select";
 
 const TableField = ({
   editBoolean,
   editState,
-  fieldData,
-  newValue,
-  newValueData,
-  setNewValue,
+  thisFieldValue,
+  fieldValue,
+  setFieldValue,
   setEdit,
   policyNumber,
   handleSave,
@@ -26,10 +23,10 @@ const TableField = ({
         <>
           {thisField === "status" ? (
             <span className='p-1 text-xs font-medium uppercase tracking-wider text-text bg-featherGreen rounded-lg bg-opacity-50'>
-              {fieldData}
+              {thisFieldValue}
             </span>
           ) : (
-            <p>{fieldData}</p>
+            <p>{thisFieldValue}</p>
           )}
           <img
             src={editSvg}
@@ -43,16 +40,17 @@ const TableField = ({
         <>
           {thisField === "status" ? (
             <Select
-              setNewValue={setNewValue}
-              newValue={newValue}
+              setFieldValue={setFieldValue}
+              fieldValue={fieldValue}
               thisField={thisField}
+              thisFieldValue={thisFieldValue}
             />
           ) : (
             <Input
               className='border-text border-2 border-opacity-20 rounded-md'
-              value={newValueData}
+              value={thisFieldValue}
               onChange={(e) =>
-                setNewValue({ ...newValue, [thisField]: e.target.value })
+                setFieldValue({ ...fieldValue, [thisField]: e.target.value })
               }
             />
           )}
@@ -62,7 +60,9 @@ const TableField = ({
               height={17}
               width={17}
               alt='edit-icon'
-              onClick={() => handleSave(thisField, newValueData, policyNumber)}
+              onClick={() =>
+                handleSave(thisField, thisFieldValue, policyNumber)
+              }
             />
             <img
               src={closeSvg}
