@@ -7,6 +7,7 @@ import { ALL_POLICIES } from "../../graphql/querys";
 import TableField from "./TableField";
 import { EditState, FieldValue } from "../../interfaces/table.interface";
 import DateField from "./DateField";
+import { Link } from "react-router-dom";
 
 const TableRow = (policy: AllPolicy) => {
   const [edit, setEdit] = useState<EditState>({
@@ -37,9 +38,11 @@ const TableRow = (policy: AllPolicy) => {
   return (
     <tr className='bg-gray-50'>
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
-        <a href='#' className='font-bold text-blue-500 hover:underline'>
+        <Link
+          to={`/customer/${policy.policyNumber}`}
+          className='font-bold text-blue-500 hover:underline'>
           {`${policy.customer.firstName} ${policy.customer.lastName}`}
-        </a>
+        </Link>
       </td>
       <TableField
         editBoolean={edit.provider}
