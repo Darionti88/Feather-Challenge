@@ -3,7 +3,12 @@ import { gql } from "apollo-server";
 export const typeDefs = gql`
   scalar Date
 
+  input CustomerOrderByInput {
+    lastName: Sort
+  }
+
   input PolicyOrderByInput {
+    customer: CustomerOrderByInput
     provider: Sort
     insuranceType: Sort
     status: Sort
