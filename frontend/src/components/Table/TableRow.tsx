@@ -7,6 +7,7 @@ import { ALL_POLICIES } from "../../graphql/querys";
 import TableField from "./TableField";
 import { EditState, FieldValue } from "../../interfaces/table.interface";
 import DateField from "./DateField";
+import { Link } from "react-router-dom";
 
 const TableRow = (policy: AllPolicy) => {
   const [edit, setEdit] = useState<EditState>({
@@ -37,9 +38,11 @@ const TableRow = (policy: AllPolicy) => {
   return (
     <tr className='bg-gray-50'>
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
-        <a href='#' className='font-bold text-blue-500 hover:underline'>
+        <Link
+          to={`/customer/${policy.policyNumber}`}
+          className='font-bold text-blue-500 hover:underline text-1xl'>
           {`${policy.customer.firstName} ${policy.customer.lastName}`}
-        </a>
+        </Link>
       </td>
       <TableField
         editBoolean={edit.provider}
@@ -53,7 +56,7 @@ const TableRow = (policy: AllPolicy) => {
         thisField='provider'
       />
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
-        <span className='p-1.5 text-xs font-medium uppercase tracking-wider text-white bg-featherPurple rounded-lg bg-opacity-50'>
+        <span className='p-2 text-md font-medium uppercase tracking-wider text-white bg-featherBlue rounded-lg bg-opacity-50'>
           {policy.insuranceType}
         </span>
       </td>
@@ -68,10 +71,14 @@ const TableRow = (policy: AllPolicy) => {
         handleSave={handleSave}
         thisField='status'
       />
-      <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
-        {policy.policyNumber}
+      <td className='p-3 text-md text-gray-700 whitespace-nowrap'>
+        <Link
+          to={`/policy/${policy.policyNumber}`}
+          className=' text-blue-500 hover:underline text-1xl'>
+          {`# ${policy.policyNumber}`}
+        </Link>
       </td>
-      <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-md text-gray-700 whitespace-nowrap'>
         {policy.startDate}
       </td>
       <DateField
@@ -85,7 +92,7 @@ const TableRow = (policy: AllPolicy) => {
         handleSave={handleSave}
         thisField='endDate'
       />
-      <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-md text-gray-700 whitespace-nowrap'>
         {policy.createdAt}
       </td>
     </tr>

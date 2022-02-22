@@ -7,9 +7,10 @@ module.exports = {
       colors: {
         featherPurple: "#8e8cee",
         featherDarkPurple: "#5f5e9e",
-        featherGreen: "#90df9c",
-        featherOrange: "#e59254",
-        featherPink: "#ee5f92",
+        featherGreen: "#5eba6b",
+        featherOrange: "#e67b29",
+        featherPink: "#eb3d7a",
+        featherBlue: "#64a0ee",
         text: "#26262f",
       },
     },

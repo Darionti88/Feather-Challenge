@@ -28,3 +28,36 @@ export const POLICY_ENUMS = gql`
     }
   }
 `;
+
+export const GET_POLICY = gql`
+  query getPolicy($policyNumber: Int) {
+    getPolicy(policyNumber: $policyNumber) {
+      provider
+      customer {
+        firstName
+        lastName
+        dateOfBirth
+      }
+      insuranceType
+      status
+      policyNumber
+      startDate
+      endDate
+      createdAt
+    }
+  }
+`;
+
+export const GET_CUSTOMER = gql`
+  query getPolicy($policyNumber: Int) {
+    getPolicy(policyNumber: $policyNumber) {
+      customer {
+        firstName
+        lastName
+        dateOfBirth
+      }
+      status
+      policyNumber
+    }
+  }
+`;

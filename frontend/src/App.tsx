@@ -1,18 +1,19 @@
 import "./index.css";
-import { useQuery } from "@apollo/client";
-import { ALL_POLICIES } from "./graphql/querys";
-import { Policies } from "./interfaces/allPolicies.interface";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import CustomerPage from "./pages/Customer";
 import Navbar from "./components/Navbar/Navbar";
-import Table from "./components/Table/Table";
-import { useEffect } from "react";
-import { useGetAllPolicies } from "./hooks/useGetPolicies";
-import { policies } from "../../backend/src/mockData";
+import Policy from "./pages/Policy";
 
 function App() {
   return (
-    <div className='flex flex-col space-y-10 container mx-auto h-screen'>
+    <div className='h-screen'>
       <Navbar />
-      <Table />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='customer/:policyNumber' element={<CustomerPage />} />
+        <Route path='policy/:policyNumber' element={<Policy />} />
+      </Routes>
     </div>
   );
 }

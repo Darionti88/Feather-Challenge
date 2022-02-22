@@ -5,6 +5,7 @@ import closeSvg from "../../assets/icons/close.svg";
 import { Input } from "@popsure/dirty-swan";
 import { TableFieldProps } from "../../interfaces/table.interface";
 import Select from "../Select/Select";
+import { setStatusColor } from "../../helpers/statusColor";
 
 const TableField = ({
   editBoolean,
@@ -22,11 +23,15 @@ const TableField = ({
       {!editBoolean ? (
         <>
           {thisField === "status" ? (
-            <span className='p-1 text-xs font-medium uppercase tracking-wider text-text bg-featherGreen rounded-lg bg-opacity-50'>
+            <span
+              className={`p-2 text-md font-medium uppercase tracking-wider 
+               text-white shadow-sm ${setStatusColor(
+                 thisFieldValue
+               )} rounded-lg bg-opacity-50`}>
               {thisFieldValue}
             </span>
           ) : (
-            <p>{thisFieldValue}</p>
+            <p className=' text-md'>{thisFieldValue}</p>
           )}
           <img
             src={editSvg}

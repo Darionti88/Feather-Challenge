@@ -22,7 +22,7 @@ export const typeDefs = gql`
     provider: String
     insuranceType: InsuranceType
     status: PolicyStatus
-    policyNumber: Int
+    policyNumber: String
     startDate: Date
     endDate: Date
     createdAt: Date
@@ -59,6 +59,7 @@ export const typeDefs = gql`
 
   type Query {
     allPolicies(orderBy: PolicyOrderByInput): [Policy]!
+    getPolicy(policyNumber: Int): Policy!
   }
 
   type Mutation {
