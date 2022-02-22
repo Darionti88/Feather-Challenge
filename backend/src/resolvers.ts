@@ -9,10 +9,14 @@ export const resolvers = {
       _: ParentNode,
       args: {
         orderBy: Prisma.Enumerable<Prisma.PolicyOrderByWithRelationInput>;
+        skip: number;
+        take: number;
       }
     ): Promise<Policy[]> {
       const policies = await context.prisma.policy.findMany({
         orderBy: args.orderBy && args.orderBy,
+        skip: args.skip,
+        take: args.take,
         include: { customer: true },
       });
       if (!policies) return [];
