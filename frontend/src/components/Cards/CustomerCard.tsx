@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
+import { AllPolicy } from "../../interfaces/allPolicies.interface";
+import avatar from "../../assets/images/avatar-placeholder.png";
+import Chip from "../Chip/Chip";
 
 const CustomerCard = ({
-  firstName,
-  lastName,
+  customer,
   policyNumber,
   status,
-  avatar,
-  dateOfBirth,
-}: any) => {
+}: Partial<AllPolicy>) => {
   return (
     <div className=' w-5/6 lg:w-1/3 h-3/4 bg-gray-50 rounded-md transition-all border-2 border-opacity-40 border-featherPurple card'>
       <div className='h-2/4 w-full flex flex-col items-center justify-center'>
@@ -23,7 +23,7 @@ const CustomerCard = ({
               Full Name:{" "}
             </label>
             <p id='fullName' className='text-2xl text-text'>
-              {firstName} {lastName}
+              {customer?.firstName} {customer?.lastName}
             </p>
           </div>
           <div className='flex flex-col'>
@@ -33,14 +33,12 @@ const CustomerCard = ({
               Date Of Birth:{" "}
             </label>
             <p id='dateOfBirth' className='text-2xl text-text'>
-              {dateOfBirth}
+              {customer?.dateOfBirth}
             </p>
           </div>
         </div>
         <div className='flex w-5/6 h-2/5 items-center justify-between'>
-          <span className='p-1.5  font-medium text-2xl uppercase tracking-wider text-white bg-featherPurple rounded-lg bg-opacity-50'>
-            {status}
-          </span>
+          <Chip status={status} />
           <Link
             to={`/policy/${policyNumber}`}
             className='font-bold text-2xl text-blue-500 hover:underline cursor-pointer'>

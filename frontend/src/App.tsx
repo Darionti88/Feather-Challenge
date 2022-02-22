@@ -11,8 +11,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='customer/:policyid' element={<CustomerPage />} />
-        <Route path='policy/:policyid' element={<Policy />} />
+        <Route path='customer/:policyNumber' element={<CustomerPage />} />
+        <Route path='policy/:policyNumber' element={<Policy />} />
       </Routes>
     </div>
   );
