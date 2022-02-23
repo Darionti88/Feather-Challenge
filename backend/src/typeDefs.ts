@@ -3,7 +3,12 @@ import { gql } from "apollo-server";
 export const typeDefs = gql`
   scalar Date
 
+  input CustomerOrderByInput {
+    lastName: Sort
+  }
+
   input PolicyOrderByInput {
+    customer: CustomerOrderByInput
     provider: Sort
     insuranceType: Sort
     status: Sort
@@ -58,7 +63,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    allPolicies(orderBy: PolicyOrderByInput): [Policy]!
+    policiesCount: Int!
+    allPolicies(orderBy: PolicyOrderByInput, skip: Int, take: Int): [Policy]!
     getPolicy(policyNumber: Int): Policy!
   }
 

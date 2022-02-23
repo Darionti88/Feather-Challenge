@@ -17,7 +17,7 @@ const DateField = ({
   thisField,
 }: TableFieldProps) => {
   return (
-    <td className='p-3 text-md text-gray-700 flex flex-row justify-between whitespace-nowrap'>
+    <td className='p-3 w-15 text-md text-gray-700 flex flex-row justify-between whitespace-nowrap'>
       {!editBoolean ? (
         <>
           <p>{formatDate(thisFieldValue)}</p>

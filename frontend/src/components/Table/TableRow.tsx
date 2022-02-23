@@ -21,9 +21,7 @@ const TableRow = (policy: AllPolicy) => {
     endDate: policy.endDate,
   });
 
-  const [editPolicy] = useMutation(EDIT_POLICY, {
-    refetchQueries: [{ query: ALL_POLICIES }],
-  });
+  const [editPolicy] = useMutation(EDIT_POLICY);
 
   const handleSave = (
     field: string,
@@ -37,7 +35,7 @@ const TableRow = (policy: AllPolicy) => {
 
   return (
     <tr className='bg-gray-50'>
-      <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-sm text-gray-700 w-10 '>
         <Link
           to={`/customer/${policy.policyNumber}`}
           className='font-bold text-blue-500 hover:underline text-1xl'>
@@ -55,7 +53,7 @@ const TableRow = (policy: AllPolicy) => {
         handleSave={handleSave}
         thisField='provider'
       />
-      <td className='p-3 text-sm text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-sm text-gray-700 whitespace-nowrap w-15'>
         <span className='p-2 text-md font-medium uppercase tracking-wider text-white bg-featherBlue rounded-lg bg-opacity-50'>
           {policy.insuranceType}
         </span>
@@ -71,14 +69,14 @@ const TableRow = (policy: AllPolicy) => {
         handleSave={handleSave}
         thisField='status'
       />
-      <td className='p-3 text-md text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-md text-gray-700 whitespace-nowrap w-15'>
         <Link
           to={`/policy/${policy.policyNumber}`}
           className=' text-blue-500 hover:underline text-1xl'>
           {`# ${policy.policyNumber}`}
         </Link>
       </td>
-      <td className='p-3 text-md text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-md text-gray-700 whitespace-nowrap w-15'>
         {policy.startDate}
       </td>
       <DateField
@@ -92,7 +90,7 @@ const TableRow = (policy: AllPolicy) => {
         handleSave={handleSave}
         thisField='endDate'
       />
-      <td className='p-3 text-md text-gray-700 whitespace-nowrap'>
+      <td className='p-3 text-md text-gray-700 whitespace-nowrap w-15'>
         {policy.createdAt}
       </td>
     </tr>
