@@ -1,10 +1,15 @@
 import { Customer, Policy, Prisma, Status } from "@prisma/client";
 import { context, Context } from "./context";
 import dateScalar from "./dateScalar";
+import { policies } from "./mockData";
 
 export const resolvers = {
   Date: dateScalar,
   Query: {
+    async policiesCount() {
+      const totalPolicies = await context.prisma.policy.findMany();
+      return totalPolicies.length;
+    },
     async allPolicies(
       _: ParentNode,
       args: {

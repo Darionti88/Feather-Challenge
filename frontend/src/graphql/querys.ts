@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const ALL_POLICIES = gql`
-  query allPolicies($orderBy: PolicyOrderByInput) {
-    allPolicies(orderBy: $orderBy) {
+  query allPolicies($orderBy: PolicyOrderByInput, $skip: Int, $take: Int) {
+    allPolicies(orderBy: $orderBy, skip: $skip, take: $take) {
       customer {
         firstName
         lastName
@@ -16,6 +16,7 @@ export const ALL_POLICIES = gql`
       endDate
       createdAt
     }
+    policiesCount
   }
 `;
 
