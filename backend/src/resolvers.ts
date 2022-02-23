@@ -24,15 +24,21 @@ export const resolvers = {
         take: args.take,
         include: { customer: true },
       });
-      if (!policies) return [];
+      if (!policies) throw new Error("Oops, we found nothing. Try Refreshing");
       return policies;
     },
     async getPolicy(_: ParentNode, args: { policyNumber: number }) {
-      const customer = await context.prisma.policy.findUnique({
-        where: { policyNumber: args.policyNumber },
+      const policy = await context.prisma.policy.findUnique({
+        where: {
+          policyNumber: args.policyNumber,
+        },
         include: { customer: true },
       });
-      return customer;
+      if (!policy)
+        throw new Error(
+          "Oops, couldn't find that Policy, try with another one."
+        );
+      return policy;
     },
   },
   Mutation: {
@@ -45,15 +51,17 @@ export const resolvers = {
     ) => {
       const fieldToEdit = "policyNumber" in args.edit;
       if (fieldToEdit) {
-        await context.prisma.customer.update({
+        const customer = await context.prisma.customer.update({
           where: { policyId: args.policyNumber },
           data: { policyId: args.edit.policyNumber },
         });
+        if (!customer)
+          throw new Error("Could not find this customer, try refreshing");
         const updatedPolicy = await context.prisma.policy.update({
           where: { policyNumber: args.policyNumber },
           data: args.edit,
         });
-        if (!updatedPolicy) return null;
+        if (!updatedPolicy) throw new Error("This policy does not exists");
 
         return updatedPolicy;
       } else {
