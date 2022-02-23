@@ -1,7 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { onError } from "@apollo/client/link/error";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import {
@@ -9,7 +9,24 @@ import {
   HttpLink,
   InMemoryCache,
   ApolloProvider,
+  from,
 } from "@apollo/client";
+import "@popsure/dirty-swan/dist/index.css";
+
+const httpLink = new HttpLink({
+  uri: "http://localhost:4000/graphql",
+});
+
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.forEach(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+      )
+    );
+
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
 
 const client = new ApolloClient({
   connectToDevTools: true,
@@ -27,9 +44,7 @@ const client = new ApolloClient({
       },
     },
   }),
-  link: new HttpLink({
-    uri: "http://localhost:4000",
-  }),
+  link: from([errorLink, httpLink]),
 });
 
 ReactDOM.render(
