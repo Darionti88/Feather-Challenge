@@ -8,7 +8,9 @@
   "dependencies": {
     "@prisma/client": "3.9.2",
     "apollo-server": "^3.2.0",
+    "bcryptjs": "^2.4.3",
     "graphql": "^15.5.1",
+    "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.12",
     "prisma": "^3.9.2",
     "ts-node": "^10.2.1",
@@ -16,5 +18,9 @@
   },
   "scripts": {
     "dev": "nodemon"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.8"
   }
 }
