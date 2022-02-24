@@ -70,7 +70,7 @@ const Signup = () => {
         <hr className='w-5/6 border-featherDarkPurple border-bottom-6 mt-2 self-center border-opacity-30' />
         <div className='flex flex-col h-1/5 justify-center'>
           <Link
-            to='/signup'
+            to='/login'
             className='font-bold text-blue-500 hover:underline text-1xl'>
             If you already have an account Login here.
           </Link>
