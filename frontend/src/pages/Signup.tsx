@@ -18,7 +18,7 @@ const Signup = () => {
 
   const handleSignUp = () => {
     registerUser({ variables: newUser });
-    navigate("/");
+    navigate("/login");
   };
 
   return (

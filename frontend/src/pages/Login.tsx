@@ -18,12 +18,12 @@ const Login = () => {
   const navigate = useNavigate();
   const [logUser, { error, data }] = useMutation(LOGIN);
 
-  const handleLogin = (loginValues: LoginUser) => {
-    console.log(loginValues);
-    logUser({ variables: { loginValues } });
-    if (data) {
-      document.cookie = "token=" + data.login.token;
-      navigate("/");
+  const handleLogin = async (loginValues: LoginUser) => {
+    const response = await logUser({ variables: loginValues });
+    console.log(response.data);
+    if (response.data) {
+      localStorage.setItem("access-token", response.data.login.token);
+      navigate("/dashboard");
     }
   };
 

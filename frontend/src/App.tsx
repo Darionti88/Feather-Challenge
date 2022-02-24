@@ -6,17 +6,20 @@ import Navbar from "./components/Navbar/Navbar";
 import Policy from "./pages/Policy";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import IsAuthenticated from "./components/IsAuthenticated";
 
 function App() {
   return (
     <div className='h-screen'>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/login' element={<Login />} />
-        <Route path='customer/:policyNumber' element={<CustomerPage />} />
-        <Route path='policy/:policyNumber' element={<Policy />} />
+        <Route element={<IsAuthenticated />}>
+          <Route path='/dashboard' element={<Home />} />
+          <Route path='customer/:policyNumber' element={<CustomerPage />} />
+          <Route path='policy/:policyNumber' element={<Policy />} />
+        </Route>
       </Routes>
     </div>
   );

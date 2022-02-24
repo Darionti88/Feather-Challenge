@@ -62,3 +62,11 @@ export const GET_CUSTOMER = gql`
     }
   }
 `;
+
+export const IS_LOGGED = gql`
+  query IsLogged {
+    isLogged {
+      id
+    }
+  }
+`;
