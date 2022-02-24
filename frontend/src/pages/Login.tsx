@@ -4,6 +4,7 @@ import "@popsure/dirty-swan/dist/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN } from "../graphql/mutations";
+import Modal from "../components/Modal/Modal";
 
 interface LoginUser {
   email: string;
@@ -16,14 +17,21 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
-  const [logUser, { error, data }] = useMutation(LOGIN);
+  const resetState = () => {
+    setLoginUser({ email: "", password: "" });
+  };
+  const [logUser] = useMutation(LOGIN);
 
   const handleLogin = async (loginValues: LoginUser) => {
-    const response = await logUser({ variables: loginValues });
-    console.log(response.data);
-    if (response.data) {
-      localStorage.setItem("access-token", response.data.login.token);
-      navigate("/dashboard");
+    try {
+      const response = await logUser({ variables: loginValues });
+      if (response.data) {
+        localStorage.setItem("access-token", response.data.login.token);
+        resetState();
+        navigate("/dashboard");
+      }
+    } catch (errors) {
+      alert(errors);
     }
   };
 

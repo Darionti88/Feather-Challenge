@@ -17,22 +17,22 @@ const CustomerCard = ({
       <div className='flex flex-col  h-2/4 w-full space-y-4 items-center justify-between'>
         <div className='w-full h-3/5 flex flex-col items-center space-y-5'>
           <div className='flex flex-col'>
-            <label
-              htmlFor='fullName'
-              className='text-1xl self-center text-gray-400'>
-              Full Name:{" "}
-            </label>
-            <p id='fullName' className='text-2xl text-text'>
+            <p className='text-1xl self-center text-gray-400'>Full Name: </p>
+            <p
+              aria-label='Full Name'
+              id='fullName'
+              className='text-2xl text-text'>
               {customer?.firstName} {customer?.lastName}
             </p>
           </div>
           <div className='flex flex-col'>
-            <label
-              htmlFor='dateOfBirth'
-              className='text-1xl self-center text-gray-400'>
+            <p className='text-1xl self-center text-gray-400'>
               Date Of Birth:{" "}
-            </label>
-            <p id='dateOfBirth' className='text-2xl text-text'>
+            </p>
+            <p
+              id='dateOfBirth'
+              aria-label='Date of Birth'
+              className='text-2xl text-text'>
               {customer?.dateOfBirth}
             </p>
           </div>
@@ -40,9 +40,10 @@ const CustomerCard = ({
         <div className='flex w-5/6 h-2/5 items-center justify-between'>
           <Chip status={status} />
           <Link
+            data-testid='linkToPolicy'
             to={`/policy/${policyNumber}`}
             className='font-bold text-2xl text-blue-500 hover:underline cursor-pointer'>
-            <p>{`P# ${policyNumber}`}</p>
+            {`P# ${policyNumber}`}
           </Link>
         </div>
       </div>
