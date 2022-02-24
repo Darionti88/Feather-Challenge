@@ -1,4 +1,6 @@
 import { ApolloServer, gql } from "apollo-server";
+import express from "express";
+import cors from "cors";
 import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
 import { prisma } from "./context";
@@ -18,6 +20,8 @@ const server = new ApolloServer({
     };
   },
 });
+const app = express();
+app.use(cors());
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
