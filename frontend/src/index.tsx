@@ -1,34 +1,12 @@
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { onError } from "@apollo/client/link/error";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
-import {
-  ApolloClient,
-  HttpLink,
-  InMemoryCache,
-  ApolloProvider,
-  from,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { link } from "./graphql/apollo-links";
 
-const httpLink = new HttpLink({
-  uri: "http://localhost:4000",
-});
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("access-token");
-  return {
-    ...headers,
-    headers: {
-      authorization: token ? `Bearer ${token} ` : "",
-    },
-  };
-});
-
-const link = authLink.concat(httpLink);
-
-const client = new ApolloClient({
+export const client = new ApolloClient({
   connectToDevTools: true,
   cache: new InMemoryCache({
     typePolicies: {
@@ -52,7 +30,6 @@ ReactDOM.render(
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
-    ,
   </BrowserRouter>,
   document.getElementById("root")
 );
