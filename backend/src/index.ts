@@ -1,7 +1,7 @@
 import { ApolloServer, gql } from "apollo-server";
 import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
-import { prisma, Context } from "./context";
+import { prisma } from "./context";
 import { Request } from "express";
 import { decodeToken } from "./utils/auth";
 

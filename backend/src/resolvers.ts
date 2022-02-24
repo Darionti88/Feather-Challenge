@@ -73,7 +73,6 @@ export const resolvers = {
       const passwordMatch = await bcrypt.compare(args.password, user.password);
       if (!passwordMatch)
         throw new Error("Invalid Credentials, pleaste try again.");
-
       const token = jwt.sign({ id: user.id, email: user.email }, APP_SECRET);
       return { token, user };
     },

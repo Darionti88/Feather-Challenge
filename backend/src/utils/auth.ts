@@ -1,4 +1,5 @@
 import * as jwt from "jsonwebtoken";
+import { AuthenticationError } from "apollo-server";
 
 export const APP_SECRET = "opwiejflmnsnddsdfdfds";
 
@@ -13,6 +14,6 @@ export function decodeToken(token: string) {
     }
     return null;
   } catch (err) {
-    throw new Error("No token found");
+    throw new AuthenticationError("No token found");
   }
 }

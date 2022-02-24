@@ -1,18 +1,60 @@
 import { Button, Input } from "@popsure/dirty-swan";
-import React from "react";
+import React, { useState } from "react";
 import "@popsure/dirty-swan/dist/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../graphql/mutations";
+
+interface LoginUser {
+  email: string;
+  password: string;
+}
 
 const Login = () => {
+  const [loginUser, setLoginUser] = useState<LoginUser>({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+  const [logUser, { error, data }] = useMutation(LOGIN);
+
+  const handleLogin = (loginValues: LoginUser) => {
+    console.log(loginValues);
+    logUser({ variables: { loginValues } });
+    if (data) {
+      document.cookie = "token=" + data.login.token;
+      navigate("/");
+    }
+  };
+
   return (
     <div className='flex flex-col container mx-auto items-center justify-flex-start h-full px-10 '>
       <div className=' w-5/6 lg:w-1/3 h-3/4 flex flex-col items-center bg-gray-50 rounded-md transition-all border-2 border-opacity-40 border-featherPurple card shadow-md'>
         <h1 className=' pt-5 text-4xl text-featherDarkPurple'>Login</h1>
         <div className=' w-full flex flex-col space-y-10 items-center h-2/3 justify-center'>
-          <Input className='wmx5 mt8 w-4/6' placeholder='Email' />
-          <Input className='wmx5 mt8 w-4/6' placeholder='Password' />
+          <Input
+            value={loginUser.email}
+            onChange={(e) =>
+              setLoginUser({ ...loginUser, email: e.target.value })
+            }
+            className='wmx5 mt8 w-4/6'
+            placeholder='Email'
+          />
+          <Input
+            value={loginUser.password}
+            type='password'
+            onChange={(e) =>
+              setLoginUser({ ...loginUser, password: e.target.value })
+            }
+            className='wmx5 mt8 w-4/6'
+            placeholder='Password'
+          />
 
-          <Button className='w-4/6' buttonTitle='Log in' />
+          <Button
+            onClick={() => handleLogin(loginUser)}
+            className='w-4/6'
+            buttonTitle='Log in'
+          />
         </div>
         <hr className='w-5/6 border-featherDarkPurple border-bottom-6 mt-2 self-center border-opacity-30' />
         <div className='flex flex-col h-1/4 justify-center'>
