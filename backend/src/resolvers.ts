@@ -1,5 +1,5 @@
 import { Policy, Prisma } from "@prisma/client";
-import { Context, context } from "./context";
+import { Context } from "./context";
 import dateScalar from "./dateScalar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

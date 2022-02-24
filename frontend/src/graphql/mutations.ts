@@ -13,3 +13,24 @@ export const EDIT_POLICY = gql`
     }
   }
 `;
+
+export const REGISTER = gql`
+  mutation Register(
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $password: String!
+  ) {
+    register(
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+    ) {
+      email
+      firstName
+      lastName
+      id
+    }
+  }
+`;

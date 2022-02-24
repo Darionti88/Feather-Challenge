@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import CustomerPage from "./pages/Customer";
 import Navbar from "./components/Navbar/Navbar";
 import Policy from "./pages/Policy";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
         <Route path='customer/:policyNumber' element={<CustomerPage />} />
         <Route path='policy/:policyNumber' element={<Policy />} />
       </Routes>

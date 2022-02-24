@@ -6,11 +6,13 @@ export interface AuthTokenPayload {
   userId: number;
 }
 
-export function decodeAuthHeader(authHeader: String): AuthTokenPayload {
-  const token = authHeader.replace("Bearer ", "");
-
-  if (!token) {
+export function decodeToken(token: string) {
+  try {
+    if (token) {
+      return jwt.verify(token, APP_SECRET);
+    }
+    return null;
+  } catch (err) {
     throw new Error("No token found");
   }
-  return jwt.verify(token, APP_SECRET) as AuthTokenPayload;
 }

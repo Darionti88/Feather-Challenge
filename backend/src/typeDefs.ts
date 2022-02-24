@@ -41,6 +41,7 @@ export const typeDefs = gql`
   }
 
   type Policy {
+    provider: String!
     customer: Customer!
     insuranceType: InsuranceType!
     status: PolicyStatus
