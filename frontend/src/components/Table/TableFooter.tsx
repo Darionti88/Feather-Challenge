@@ -13,9 +13,9 @@ const TableFooter = ({
 }: FooterProps) => {
   const pagesArray: string[] = getTotalPages(numberOfPages);
   return (
-    <tfoot className='w-full bg-gray-100 border-t-2'>
-      <tr className='w-full h-10'>
-        <td className='w-full  px-24 text-right ' colSpan={8}>
+    <tfoot className='w-full bg-gray-100 border-t-2 '>
+      <tr className='w-full '>
+        <td className='w-full  px-24 text-right py-2' colSpan={8}>
           {pagesArray.map((page, index) => {
             return (
               <button

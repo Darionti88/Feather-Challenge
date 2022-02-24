@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { onError } from "@apollo/client/link/error";
 import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import {
@@ -8,6 +9,7 @@ import {
   HttpLink,
   InMemoryCache,
   ApolloProvider,
+  from,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 

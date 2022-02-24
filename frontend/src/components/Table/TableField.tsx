@@ -19,7 +19,7 @@ const TableField = ({
   thisField,
 }: TableFieldProps) => {
   return (
-    <td className='p-3 text-sm w-15 text-gray-700 flex flex-row justify-between whitespace-nowrap'>
+    <td className='p-3 text-sm text-gray-700 flex flex-row justify-between whitespace-nowrap'>
       {!editBoolean ? (
         <>
           {thisField === "status" ? (
@@ -52,7 +52,6 @@ const TableField = ({
             />
           ) : (
             <Input
-              className='border-text border-2 border-opacity-20 rounded-md '
               value={thisFieldValue}
               onChange={(e) =>
                 setFieldValue({ ...fieldValue, [thisField]: e.target.value })

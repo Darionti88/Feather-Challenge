@@ -1,14 +1,17 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { useState } from "react";
 import TableRow from "./TableRow";
 
 import { useGetAllPolicies } from "../../hooks/useGetPolicies";
 import { getHeadersArray } from "../../helpers/headersArray";
 import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
+import Modal from "../Modal/Modal";
 
 const Table = () => {
   const { policies, refetch, loading, error, fetchMore } = useGetAllPolicies();
   const [currentPage, setCurrentPage] = useState<string>("1");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const [orderAsc, setOrderAsc] = useState<{ [key: string]: boolean }>({
     customer: false,
     provider: false,
@@ -44,35 +47,40 @@ const Table = () => {
   };
 
   if (loading) return <h1>Loading...</h1>;
-  if (error) return <h1>{error.message}</h1>;
+  if (error) {
+    return <Modal error={error} />;
+  }
+  // setIsModalOpen(true);
 
   return (
-    <div className='py-10'>
-      <table className='w-full shadow-lg tableLayout'>
-        <thead className='bg-gray-100 border-b-2 border-gray-200'>
-          <tr>
-            {headers?.map((header: string) => (
-              <TableHeader
-                key={header}
-                orderAsc={orderAsc}
-                header={header}
-                handleSort={handleSort}
-              />
+    <>
+      <div className='py-10'>
+        <table className='w-full shadow-lg tableLayout'>
+          <thead className='bg-gray-100 border-b-2 border-gray-200'>
+            <tr>
+              {headers?.map((header: string) => (
+                <TableHeader
+                  key={header}
+                  orderAsc={orderAsc}
+                  header={header}
+                  handleSort={handleSort}
+                />
+              ))}
+            </tr>
+          </thead>
+          <tbody className='divide-y divide-gray-100'>
+            {policies?.allPolicies?.map((policy) => (
+              <TableRow key={policy.policyNumber} {...policy} />
             ))}
-          </tr>
-        </thead>
-        <tbody className='divide-y divide-gray-100'>
-          {policies?.allPolicies?.map((policy) => (
-            <TableRow key={policy.policyNumber} {...policy} />
-          ))}
-        </tbody>
-        <TableFooter
-          currentPage={currentPage}
-          handleFetchMore={handleFetchMore}
-          numberOfPages={policies?.policiesCount}
-        />
-      </table>
-    </div>
+          </tbody>
+          <TableFooter
+            currentPage={currentPage}
+            handleFetchMore={handleFetchMore}
+            numberOfPages={policies?.policiesCount}
+          />
+        </table>
+      </div>
+    </>
   );
 };
 
