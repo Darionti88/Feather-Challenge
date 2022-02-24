@@ -1,16 +1,18 @@
 import { useState } from "react";
 import TableRow from "./TableRow";
-
-import { useGetAllPolicies } from "../../hooks/useGetPolicies";
 import { getHeadersArray } from "../../helpers/headersArray";
 import TableHeader from "./TableHeader";
 import TableFooter from "./TableFooter";
 import Modal from "../Modal/Modal";
+import { useQuery } from "@apollo/client";
+import { ALL_POLICIES } from "../../graphql/querys";
+import { AllPolicy } from "../../interfaces/allPolicies.interface";
 
 const Table = () => {
-  const { policies, refetch, loading, error, fetchMore } = useGetAllPolicies();
+  const { data, loading, error, refetch, fetchMore } = useQuery(ALL_POLICIES, {
+    variables: { orderBy: {}, skip: 0, take: 5 },
+  });
   const [currentPage, setCurrentPage] = useState<string>("1");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [orderAsc, setOrderAsc] = useState<{ [key: string]: boolean }>({
     customer: false,
@@ -23,7 +25,7 @@ const Table = () => {
     createdAt: false,
   });
 
-  const headers: string[] = getHeadersArray(policies);
+  const headers: string[] = getHeadersArray(data);
 
   const handleSort = (field: string) => {
     setOrderAsc({ ...orderAsc, [field]: !orderAsc[field] });
@@ -50,7 +52,6 @@ const Table = () => {
   if (error) {
     return <Modal error={error} />;
   }
-  // setIsModalOpen(true);
 
   return (
     <>
@@ -69,14 +70,14 @@ const Table = () => {
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-100'>
-            {policies?.allPolicies?.map((policy) => (
+            {data?.allPolicies?.map((policy: AllPolicy) => (
               <TableRow key={policy.policyNumber} {...policy} />
             ))}
           </tbody>
           <TableFooter
             currentPage={currentPage}
             handleFetchMore={handleFetchMore}
-            numberOfPages={policies?.policiesCount}
+            numberOfPages={data?.allPolicies.policiesCount}
           />
         </table>
       </div>
