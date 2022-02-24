@@ -33,12 +33,19 @@ export const typeDefs = gql`
     createdAt: Date
   }
 
+  type User {
+    id: String!
+    firstName: String
+    lastName: String!
+    email: String!
+  }
+
   type Policy {
-    customer: Customer
-    provider: String
-    insuranceType: InsuranceType
+    provider: String!
+    customer: Customer!
+    insuranceType: InsuranceType!
     status: PolicyStatus
-    policyNumber: Int
+    policyNumber: Int!
     startDate: Date
     endDate: Date
     createdAt: Date
@@ -62,6 +69,11 @@ export const typeDefs = gql`
     DROPPED_OUT
   }
 
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
   type Query {
     policiesCount: Int!
     allPolicies(orderBy: PolicyOrderByInput, skip: Int, take: Int): [Policy]!
@@ -70,5 +82,12 @@ export const typeDefs = gql`
 
   type Mutation {
     editPolicy(edit: EditFieldByType, policyNumber: Int): Policy!
+    register(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String
+    ): User!
+    login(email: String!, password: String!): AuthPayload
   }
 `;

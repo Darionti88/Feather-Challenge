@@ -12,19 +12,6 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-enum Status {
-  ACTIVE
-  PENDING
-  CANCELLED
-  DROPPED_OUT
-}
-
-enum InsuranceType {
-  LIABILITY
-  HOUSEHOLD
-  HEALTH
-}
-
 model Policy {
   policyNumber  Int           @id @unique @default(autoincrement())
   provider      String
@@ -48,4 +35,26 @@ model Customer {
 
   @@index([policyId])
   @@map("customer")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+enum Status {
+  ACTIVE
+  PENDING
+  CANCELLED
+  DROPPED_OUT
+}
+
+enum InsuranceType {
+  LIABILITY
+  HOUSEHOLD
+  HEALTH
 }
