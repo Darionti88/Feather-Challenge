@@ -64,10 +64,9 @@ const Signup = () => {
             isSubmitting,
             handleChange,
             handleBlur,
-            handleSubmit,
-            resetForm,
+            isValid,
           }) => (
-            <Form className=' w-full flex flex-col space-y-10 items-center h-2/3 justify-center'>
+            <Form className=' w-full flex flex-col space-y-10 items-center h-3/4 justify-center'>
               <div className='w-full flex flex-col items-center space-y-3'>
                 <Input
                   id='firstName'
@@ -108,6 +107,7 @@ const Signup = () => {
                 />
               </div>
               <Button
+                disabled={!isValid || isSubmitting}
                 type='submit'
                 className='w-4/6 mt-5'
                 buttonTitle='Sign up'
@@ -117,7 +117,7 @@ const Signup = () => {
         </Formik>
 
         <hr className='w-5/6 border-featherDarkPurple border-bottom-6 mt-2 self-center border-opacity-30' />
-        <div className='flex flex-col h-1/5 justify-center'>
+        <div className='flex flex-col h-1/4 justify-center'>
           <Link
             to='/login'
             className='font-bold text-blue-500 hover:underline text-1xl'>
