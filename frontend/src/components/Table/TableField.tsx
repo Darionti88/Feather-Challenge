@@ -37,6 +37,7 @@ const TableField = ({
             src={editSvg}
             height={17}
             width={17}
+            className='cursor-pointer'
             alt='edit-icon'
             onClick={() => setEdit({ ...editState, [thisField]: true })}
           />
@@ -63,7 +64,8 @@ const TableField = ({
               src={saveSvg}
               height={17}
               width={17}
-              alt='edit-icon'
+              alt='save-icon'
+              className='cursor-pointer'
               onClick={() =>
                 handleSave(thisField, thisFieldValue, policyNumber)
               }
@@ -72,7 +74,8 @@ const TableField = ({
               src={closeSvg}
               height={17}
               width={17}
-              alt='edit-icon'
+              className='cursor-pointer'
+              alt='close-icon'
               onClick={() => setEdit({ ...editState, [thisField]: false })}
             />
           </div>

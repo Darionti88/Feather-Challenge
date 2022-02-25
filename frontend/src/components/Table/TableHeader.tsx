@@ -5,7 +5,7 @@ import { formatString } from "../../helpers/formatHelpers";
 
 interface HeaderProps {
   header: string;
-  orderAsc: any;
+  orderAsc: { [key: string]: boolean };
   handleSort: (header: string) => void;
 }
 
@@ -20,6 +20,7 @@ const TableHeader = ({ header, orderAsc, handleSort }: HeaderProps) => {
           onClick={() => handleSort(header)}
           src={orderAsc[header] ? arrowUp : arrowDown}
           height={24}
+          className='cursor-pointer'
           width={24}
           alt='sort-icon'
         />

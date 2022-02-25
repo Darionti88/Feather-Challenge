@@ -26,6 +26,7 @@ const DateField = ({
             src={editSvg}
             height={17}
             width={17}
+            className='cursor-pointer'
             alt='edit-icon'
             onClick={() => setEdit({ ...editState, [thisField]: true })}
           />
@@ -45,7 +46,8 @@ const DateField = ({
               src={saveSvg}
               height={17}
               width={17}
-              alt='edit-icon'
+              className='cursor-pointer'
+              alt='save-icon'
               onClick={() =>
                 handleSave(thisField, thisFieldValue, policyNumber)
               }
@@ -54,7 +56,8 @@ const DateField = ({
               src={closeSvg}
               height={17}
               width={17}
-              alt='edit-icon'
+              className='cursor-pointer'
+              alt='close-icon'
               onClick={() => setEdit({ ...editState, [thisField]: false })}
             />
           </div>

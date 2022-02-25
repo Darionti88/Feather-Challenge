@@ -77,7 +77,7 @@ const Table = () => {
           <TableFooter
             currentPage={currentPage}
             handleFetchMore={handleFetchMore}
-            numberOfPages={data?.allPolicies.policiesCount}
+            numberOfPages={data?.policiesCount}
           />
         </table>
       </div>
