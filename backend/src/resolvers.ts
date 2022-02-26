@@ -1,4 +1,4 @@
-import { Policy, Prisma } from "@prisma/client";
+import { Policy, Prisma, Status } from "@prisma/client";
 import { Context } from "./context";
 import dateScalar from "./dateScalar";
 import bcrypt from "bcryptjs";
@@ -9,20 +9,23 @@ import { ArgumentNode } from "graphql";
 export const resolvers = {
   Date: dateScalar,
   Query: {
-    async policiesCount(_: ParentNode, _args: ArgumentNode, context: Context) {
+    async policiesCount(_: never, _args: ArgumentNode, context: Context) {
       const totalPolicies = await context.prisma.policy.findMany();
       return totalPolicies.length;
     },
     async allPolicies(
-      _: ParentNode,
+      _: never,
       args: {
         orderBy: Prisma.Enumerable<Prisma.PolicyOrderByWithRelationInput>;
         skip: number;
         take: number;
+        filter: Status;
       },
       context: Context
     ): Promise<Policy[]> {
+      const where = args.filter ? { status: { contains: args.filter } } : {};
       const policies = await context.prisma.policy.findMany({
+        where: args.filter ? { status: args.filter } : {},
         orderBy: args.orderBy && args.orderBy,
         skip: args.skip,
         take: args.take,
@@ -32,7 +35,7 @@ export const resolvers = {
       return policies;
     },
     async getPolicy(
-      _: ParentNode,
+      _: never,
       args: { policyNumber: number },
       context: Context
     ) {
@@ -51,7 +54,7 @@ export const resolvers = {
   },
   Mutation: {
     register: async (
-      _: ParentNode,
+      _: never,
       args: {
         email: string;
         password: string;
@@ -68,7 +71,7 @@ export const resolvers = {
       return user;
     },
     login: async (
-      _: ParentNode,
+      _: never,
       args: { email: string; password: string },
       context: Context
     ) => {
@@ -83,7 +86,7 @@ export const resolvers = {
       return { token, user };
     },
     editPolicy: async (
-      _: ParentNode,
+      _: never,
       args: {
         edit: { policyNumber: number; provider: string; endDate: Date };
         policyNumber: number;

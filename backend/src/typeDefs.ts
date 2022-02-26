@@ -76,7 +76,12 @@ export const typeDefs = gql`
 
   type Query {
     policiesCount: Int!
-    allPolicies(orderBy: PolicyOrderByInput, skip: Int, take: Int): [Policy]!
+    allPolicies(
+      orderBy: PolicyOrderByInput
+      skip: Int
+      take: Int
+      filter: PolicyStatus
+    ): [Policy]!
     getPolicy(policyNumber: Int): Policy!
   }
 
