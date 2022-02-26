@@ -20,12 +20,23 @@ export const resolvers = {
         skip: number;
         take: number;
         filter: Status;
+        search: string;
       },
       context: Context
     ): Promise<Policy[]> {
-      const where = args.filter ? { status: { contains: args.filter } } : {};
+      const where = args.search
+        ? {
+            OR: [
+              { customer: { firstName: { contains: args.search } } },
+              { customer: { lastName: { contains: args.search } } },
+              { provider: { contains: args.search } },
+            ],
+            AND: args.filter ? { status: args.filter } : {},
+          }
+        : {};
       const policies = await context.prisma.policy.findMany({
-        where: args.filter ? { status: args.filter } : {},
+        //where: args.filter && { status: args.filter },
+        where,
         orderBy: args.orderBy && args.orderBy,
         skip: args.skip,
         take: args.take,

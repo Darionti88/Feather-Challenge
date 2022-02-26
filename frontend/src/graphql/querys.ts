@@ -1,8 +1,20 @@
 import { gql } from "@apollo/client";
 
 export const ALL_POLICIES = gql`
-  query allPolicies($orderBy: PolicyOrderByInput, $skip: Int, $take: Int) {
-    allPolicies(orderBy: $orderBy, skip: $skip, take: $take) {
+  query allPolicies(
+    $orderBy: PolicyOrderByInput
+    $skip: Int
+    $take: Int
+    $filter: PolicyStatus
+    $search: String
+  ) {
+    allPolicies(
+      orderBy: $orderBy
+      skip: $skip
+      take: $take
+      filter: $filter
+      search: $search
+    ) {
       customer {
         firstName
         lastName

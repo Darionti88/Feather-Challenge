@@ -7,12 +7,15 @@ import Modal from "../Modal/Modal";
 import { useQuery } from "@apollo/client";
 import { ALL_POLICIES } from "../../graphql/querys";
 import { AllPolicy } from "../../interfaces/allPolicies.interface";
+import FilterAndSearchBar from "./FilterAndSearchBar";
 
 const Table = () => {
   const { data, loading, error, refetch, fetchMore } = useQuery(ALL_POLICIES, {
-    variables: { orderBy: {}, skip: 0, take: 5 },
+    variables: { orderBy: {}, skip: 0, take: 5, search: "" },
   });
   const [currentPage, setCurrentPage] = useState<string>("1");
+  const [filter, setFilter] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
 
   const [orderAsc, setOrderAsc] = useState<{ [key: string]: boolean }>({
     customer: false,
@@ -48,6 +51,25 @@ const Table = () => {
     });
   };
 
+  const handleFilter = (filterOption: string) => {
+    setFilter(filterOption);
+    refetch({
+      orderBy: { provider: "asc" },
+      skip: 0,
+      take: 5,
+    });
+  };
+
+  const handleSearch = (searchValue: string) => {
+    setSearch(searchValue);
+    refetch({
+      orderBy: { provider: "asc" },
+      skip: 0,
+      take: 5,
+      search: searchValue,
+    });
+  };
+
   if (loading) return <h1>Loading...</h1>;
   if (error) {
     return <Modal error={error} />;
@@ -56,6 +78,13 @@ const Table = () => {
   return (
     <>
       <div className='py-10'>
+        <FilterAndSearchBar
+          search={search}
+          setSearch={setSearch}
+          filter={filter}
+          handleFilter={handleFilter}
+          handleSearch={handleSearch}
+        />
         <table className='w-full shadow-lg tableLayout'>
           <thead className='bg-gray-100 border-b-2 border-gray-200'>
             <tr>

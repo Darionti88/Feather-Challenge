@@ -81,6 +81,7 @@ export const typeDefs = gql`
       skip: Int
       take: Int
       filter: PolicyStatus
+      search: String
     ): [Policy]!
     getPolicy(policyNumber: Int): Policy!
   }
