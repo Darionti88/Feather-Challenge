@@ -1,5 +1,4 @@
 import { Button, Input } from "@popsure/dirty-swan";
-import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import "@popsure/dirty-swan/dist/index.css";
@@ -8,13 +7,6 @@ import { useMutation } from "@apollo/client";
 import { REGISTER } from "../graphql/mutations";
 
 const Signup = () => {
-  const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-
   const registerSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
@@ -28,12 +20,7 @@ const Signup = () => {
   });
   const navigate = useNavigate();
 
-  const [registerUser, { error }] = useMutation(REGISTER);
-
-  const handleSignUp = () => {
-    registerUser({ variables: newUser });
-    navigate("/login");
-  };
+  const [registerUser] = useMutation(REGISTER);
 
   return (
     <div className='flex flex-col container mx-auto items-center justify-flex-start h-full px-10 '>

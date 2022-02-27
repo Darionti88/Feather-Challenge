@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { APP_SECRET } from "./utils/auth";
 import { ArgumentNode } from "graphql";
+import { SelectStatusFilter } from "./interfaces";
 
 export const resolvers = {
   Date: dateScalar,
@@ -19,7 +20,7 @@ export const resolvers = {
         orderBy: Prisma.Enumerable<Prisma.PolicyOrderByWithRelationInput>;
         skip: number;
         take: number;
-        filter: Status;
+        filter?: any;
         search: string;
       },
       context: Context
@@ -33,9 +34,10 @@ export const resolvers = {
             ],
             AND: args.filter ? { status: args.filter } : {},
           }
+        : args.filter
+        ? { status: args.filter }
         : {};
       const policies = await context.prisma.policy.findMany({
-        //where: args.filter && { status: args.filter },
         where,
         orderBy: args.orderBy && args.orderBy,
         skip: args.skip,

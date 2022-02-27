@@ -8,7 +8,7 @@ interface Type {
   enumValues: EnumValue[];
 }
 
-interface EnumValue {
+export interface EnumValue {
   name: PolicyStatus;
 }
 

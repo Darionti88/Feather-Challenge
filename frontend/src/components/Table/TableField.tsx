@@ -27,7 +27,7 @@ const TableField = ({
               className={`p-2 text-md font-medium uppercase tracking-wider 
                text-white shadow-sm ${setStatusColor(
                  thisFieldValue
-               )} rounded-lg bg-opacity-50`}>
+               )} rounded-lg bg-opacity-90 `}>
               {thisFieldValue}
             </span>
           ) : (

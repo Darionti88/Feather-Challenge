@@ -1,7 +1,6 @@
 import { Button } from "@popsure/dirty-swan";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.svg";
-import { useIsLogged } from "../../hooks/useIsLogged";
 
 const Navbar = () => {
   const navigate = useNavigate();

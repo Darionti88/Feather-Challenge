@@ -5,7 +5,7 @@ export const ALL_POLICIES = gql`
     $orderBy: PolicyOrderByInput
     $skip: Int
     $take: Int
-    $filter: PolicyStatus
+    $filter: String
     $search: String
   ) {
     allPolicies(

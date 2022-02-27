@@ -56,6 +56,7 @@ export const typeDefs = gql`
     lastName: String
     dateOfBirth: Date
   }
+
   enum InsuranceType {
     LIABILITY
     HOUSEHOLD
@@ -80,8 +81,8 @@ export const typeDefs = gql`
       orderBy: PolicyOrderByInput
       skip: Int
       take: Int
-      filter: PolicyStatus
       search: String
+      filter: String
     ): [Policy]!
     getPolicy(policyNumber: Int): Policy!
   }

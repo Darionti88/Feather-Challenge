@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { AllPolicy } from "../../interfaces/allPolicies.interface";
-
 import { useMutation } from "@apollo/client";
 import { EDIT_POLICY } from "../../graphql/mutations";
-import { ALL_POLICIES } from "../../graphql/querys";
 import TableField from "./TableField";
 import { EditState, FieldValue } from "../../interfaces/table.interface";
 import DateField from "./DateField";
@@ -54,7 +52,7 @@ const TableRow = (policy: AllPolicy) => {
         thisField='provider'
       />
       <td className='p-3 text-sm text-gray-700 whitespace-nowrap w-15'>
-        <span className='p-2 text-md font-medium uppercase tracking-wider text-white bg-featherBlue rounded-lg bg-opacity-50'>
+        <span className='p-2 text-md font-medium uppercase tracking-wider text-white bg-featherBlue rounded-lg bg-opacity-60'>
           {policy.insuranceType}
         </span>
       </td>
