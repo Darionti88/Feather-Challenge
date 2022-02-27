@@ -5,7 +5,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { APP_SECRET } from "./utils/auth";
 import { ArgumentNode } from "graphql";
-import { SelectStatusFilter } from "./interfaces";
 
 export const resolvers = {
   Date: dateScalar,
