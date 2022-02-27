@@ -2,8 +2,11 @@ import { Button, Input } from "@popsure/dirty-swan";
 import "@popsure/dirty-swan/dist/index.css";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
+import { LoginUser } from "../../pages/Login";
 
-const LoginForm = ({ handleSubmit }: any) => {
+const LoginForm = ({
+  handleSubmit,
+}: ((value: LoginUser) => Promise<void>) | any) => {
   const loginSchema = Yup.object().shape({
     email: Yup.string()
       .min(4, "Email too short, at least 4 characters.")

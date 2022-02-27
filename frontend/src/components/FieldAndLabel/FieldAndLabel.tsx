@@ -1,8 +1,6 @@
-import React from "react";
-
 interface FieldProps {
   label: string;
-  content: string;
+  content: string | number;
 }
 
 const FieldAndLabel = ({ label, content }: FieldProps) => {

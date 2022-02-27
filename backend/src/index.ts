@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from "apollo-server";
+import { ApolloServer } from "apollo-server";
 import express from "express";
 import cors from "cors";
 import { typeDefs } from "./typeDefs";
@@ -20,8 +20,8 @@ const server = new ApolloServer({
     };
   },
 });
-const app = express();
-app.use(cors());
+// const app = express();
+// app.use(cors());
 
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);

@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { Params, useParams } from "react-router-dom";
 import PolicyCard from "../components/Cards/PolicyCard";
+import Loading from "../components/Loading/Loading";
 import Modal from "../components/Modal/Modal";
 import { GET_POLICY } from "../graphql/querys";
 import { AllPolicy } from "../interfaces/allPolicies.interface";
@@ -12,7 +13,7 @@ const Policy = () => {
     variables: { policyNumber: Number(policyNumber) },
   });
   const myPolicy: AllPolicy = data?.getPolicy;
-  if (loading) return <h1 className='mx-auto my-auto text-3xl'>Loading...</h1>;
+  if (loading) return <Loading />;
   if (error) {
     return <Modal error={error} />;
   }

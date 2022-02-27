@@ -9,6 +9,8 @@ export interface LoginUser {
 }
 
 const Login = () => {
+  const [logUser] = useMutation(LOGIN);
+
   const handleSubmit = async (values: LoginUser) => {
     try {
       const response = await logUser({ variables: values });
@@ -22,8 +24,6 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
-
-  const [logUser] = useMutation(LOGIN);
 
   return (
     <div className='flex flex-col container mx-auto items-center justify-flex-start h-full px-10 '>
