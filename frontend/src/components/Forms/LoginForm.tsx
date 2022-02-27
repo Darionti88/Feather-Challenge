@@ -1,9 +1,7 @@
-import React from "react";
 import { Button, Input } from "@popsure/dirty-swan";
 import "@popsure/dirty-swan/dist/index.css";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { LoginUser } from "../../pages/Login";
 
 const LoginForm = ({ handleSubmit }: any) => {
   const loginSchema = Yup.object().shape({
@@ -21,15 +19,7 @@ const LoginForm = ({ handleSubmit }: any) => {
       initialValues={{ email: "", password: "" }}
       validationSchema={loginSchema}
       onSubmit={(values) => handleSubmit(values)}>
-      {({
-        values,
-        errors,
-        touched,
-        isSubmitting,
-        handleChange,
-        handleBlur,
-        isValid,
-      }) => (
+      {({ values, errors, touched, handleChange, handleBlur, isValid }) => (
         <Form className=' w-full flex flex-col space-y-10 items-center h-2/3 justify-center'>
           <Input
             aria-errormessage='emailerr'

@@ -74,6 +74,3 @@ function getSubmitButton() {
     name: /log in/i,
   });
 }
-function emailErrorMsg() {
-  return screen.getByText(/must be valid email/i);
-}

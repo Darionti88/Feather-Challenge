@@ -8,6 +8,13 @@ interface Type {
   enumValues: EnumValue[];
 }
 
-interface EnumValue {
-  name: string;
+export interface EnumValue {
+  name: PolicyStatus;
+}
+
+export enum PolicyStatus {
+  ACTIVE = "ACTIVE",
+  CANCELLED = "CANCELLED",
+  PENDING = "PENDING",
+  DROPPED_OUT = "DROPPED_OUT",
 }

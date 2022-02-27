@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { link } from "./graphql/apollo-links";
+import "@popsure/dirty-swan/dist/index.css";
 
 export const client = new ApolloClient({
   connectToDevTools: true,
