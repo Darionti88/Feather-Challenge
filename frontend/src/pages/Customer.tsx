@@ -4,6 +4,7 @@ import { GET_CUSTOMER } from "../graphql/querys";
 import CustomerCard from "../components/Cards/CustomerCard";
 import { AllPolicy } from "../interfaces/allPolicies.interface";
 import Modal from "../components/Modal/Modal";
+import Loading from "../components/Loading/Loading";
 
 const CustomerPage = () => {
   const params: Readonly<Params<string>> = useParams();
@@ -13,7 +14,7 @@ const CustomerPage = () => {
   });
   const myCustomer: Partial<AllPolicy> = data?.getPolicy;
 
-  if (loading) return <h1 className='mx-auto my-auto text-3xl'>Loading...</h1>;
+  if (loading) return <Loading />;
   if (error) {
     return <Modal error={error} />;
   }

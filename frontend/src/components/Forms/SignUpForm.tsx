@@ -3,9 +3,9 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { SignupUser } from "../../pages/Signup";
 
-const SignUpForm = (
-  handleSubmit: ((values: SignupUser) => Promise<void>) | any
-) => {
+const SignUpForm = ({
+  handleSubmit,
+}: ((values: SignupUser) => Promise<void>) | any) => {
   const registerSchema = Yup.object().shape({
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
