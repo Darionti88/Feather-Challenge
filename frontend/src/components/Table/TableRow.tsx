@@ -24,7 +24,7 @@ const TableRow = (policy: AllPolicy) => {
   const handleSave = (
     field: string,
     fieldValue: string,
-    policyNumber: string
+    policyNumber: number
   ) => {
     setEdit({ ...edit, [field]: false });
     const newFieldAndValue = { [field]: fieldValue };

@@ -7,8 +7,8 @@ export interface TableFieldProps {
   fieldValue: FieldValue;
   setFieldValue: Dispatch<SetStateAction<FieldValue>>;
   setEdit: Dispatch<SetStateAction<EditState>>;
-  policyNumber: string;
-  handleSave: (field: string, fieldValue: string, policyNumber: string) => void;
+  policyNumber: number;
+  handleSave: (field: string, fieldValue: string, policyNumber: number) => void;
   thisField: string;
 }
 

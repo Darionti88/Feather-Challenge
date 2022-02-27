@@ -14,7 +14,6 @@ const PolicyCard = ({
   policyNumber,
   insuranceType,
   provider,
-  createdAt,
 }: AllPolicy) => {
   return (
     <div className=' w-5/6 lg:w-1/3 h-3/4 bg-gray-50 rounded-md transition-all border-2 border-opacity-40 border-featherPurple card'>
