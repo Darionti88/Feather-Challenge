@@ -1,65 +1,65 @@
 # Feather - Fullstack Engineer code challenge
 
-In this code challenge you'll need to create a simple admin panel from scratch. It would need to have a single table view to list insurance policies showcasing all the various field they may have.
+Notes before starting.
 
-The [frontend](./frontend) part would communicate with the [backend](./backend) through a GraphQL API. You need to implement both.
+You might see my last PR is called "Revert Docker Attempt". The DB i used was Planetscale (Mysql) with Prisma as ORM. Is a rather new stack so there is still not good documentation on how to set up Docker Compose with it. I gave it a try and I got pretty close, but it was not fully working so I removed it. I'm still getting my head around Docker.
 
-We've generated some boilerplate for you to get started.
+This means that, in order to make this project run you will need to download de enviromental variables [here](https://docs.google.com/document/d/1-9_rAyhGFRkGMkjSRaeyip33X7yVdHtlURtCtMNgA8A/edit) and paste it in a .env file inside [backend](./backend) folder.
 
-## What we'll be looking at
+Once that is done follow the next steps:
 
-- How you write idiomatic code.
-- How you deal with UI/UX.
-- How you navigate the requirements.
-- How you test & write testable code.
-- How you package the code.
-- How you deal with the security concerns.
-- How you communicate with your fellow programmers.
+1. On the [backend](./backend) folder:
 
-## Tasks
+Install the dependencies:
 
-1. On the [backend](./backend), change the GraphQL schema to reflect the [Data structure](#Data-structure)
-2. On the [frontend](./frontend), fetch the data returned by the GraphQL endpoint with the help of the [Apollo client](https://www.apollographql.com)
-3. On the [frontend](./frontend), display all the data returned by the endpoint in a table with the help of [tailwindcss](https://tailwindcss.com)
-   - At least several fields should be editable in place
-   - The table should have pagination and sorting on each of the columns
-   - (Bonus) Add a text search input
-   - (Bonus) Let the admin filter policies by insurance type or other fields
-4. (Bonus) Package the app with Docker
-5. (Bonus) Authenticate admins using login/password
-6. (Bonus) Create more screens (e.g. customer profile, policy page…)
+```bash
+yarn install
+```
 
-## Data structure
+And run the development server:
 
-To make it all work, you have to define a [GraphQL schema first](https://www.apollographql.com/docs/apollo-server/schema/schema/). No need to back it with a real database, however this would make sense to demonstrate the "edit" function.
-Each policy should have at least the following fields:
+```bash
+yarn dev
+```
+2. On the [frontend](./frontend) folder:
+ 
+Install the dependencies:
 
-### Policy
+```bash
+yarn install
+```
 
-| fields         | type                            | comment                                       |
-| -------------- | ------------------------------- | --------------------------------------------- |
-| customer       | [Customer](#Customer)           | Object holding the customer's informations    |
-| provider       | string                          | Name of the provider (Allianz, AXA…)          |
-| insurance type | [InsuranceType](#InsuranceType) | Type of the insurance (Liability, Household…) |
-| status         | [PolicyStatus](#PolicyStatus)   | Status of the insurance (Active, Cancelled)   |
-| policyNumber   | string                          | Used to identify the policy                   |
-| startDate      | date                            | Date when the policy should start             |
-| endDate        | date                            | Date when the policy ends                     |
-| createdAt      | date                            | Date when the record was created              |
+And run the development server:
 
-### Customer
+```bash
+yarn dev
+```
 
-| fields      | type   | comment                  |
-| ----------- | ------ | ------------------------ |
-| firstName   | string | Customer’s first name    |
-| lastName    | string | Customer’s last name     |
-| dateOfBirth | date   | Customer’s date of birth |
+3. On the [backend](./backend) folder you also need to do the following:
 
-### InsuranceType
+Generate Prisma Client:
 
-InsuranceType can be of `Liability`, `Household`, `Health`
+```bash
+npx prisma generate
+```
 
-### PolicyStatus
+And start Prisma Studio to peek the DB:
 
-PolicyStatus can be of `Active`, `Pending`, `Cancelled` and `Dropped out`
-# Feather-Challenge
+```bash
+npx prisma studio
+```
+
+Once inside the Project you can Sign Up a new user or login with the following credentials:
+
+email: feather@feather.com
+
+password: feather
+
+## Known Issues:
+Not really proud of this, but the JWT for auth it's being stored in Local Storage. I tried to set a cookie based Auth but for some reason it was not working. You might see breadcrumbs of my attempt but those are signs for me to, if we get to do the feedback, ask you some questions that will help me understand better.
+
+There are other bugs going on but we can discover them while going through it.
+
+It was defintely the most challenging challenge I have ever done. I have never used graphql before and did very little unit testing. I'm pretty satisfied of what came up in a few hours after work over the last week. 
+
+
