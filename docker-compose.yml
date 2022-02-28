@@ -1,0 +1,55 @@
+version: '3.7'
+services:
+  planetscale:
+    container_name: planetscale
+    # ports:
+    #   - '3306:3306'
+    image: planetscale/pscale:latest
+    restart: always
+    environment:
+      DATABASE_URL: "mysql://0hy3hb1dwikm:pscale_pw_RF6YX-5N82Z9y6BelLibiRT9trvEPLondfWHIwqd9ns@kjanz75p9pdo.us-east-2.psdb.cloud/feather?sslaccept=strict"
+      SHADOW_DB: "mysql://blgds4o2hnus:pscale_pw_NkKAkMbKoogyxwrW81JjneeXJeh-rGuoC8Zh0z533gg@ez5vhbkce2dw.us-east-2.psdb.cloud/feather?sslaccept=strict"
+    volumes:
+      - mysql:/var/lib/mysql
+  prisma:
+    links:
+      - planetscale
+    depends_on:
+      - planetscale
+    container_name: prisma
+    ports:
+      - '5555:5555'
+    build:
+      context: backend/prisma
+      dockerfile: Dockerfile
+    volumes:
+      - /app/prisma
+  backend:
+    links:
+      - planetscale
+    depends_on:
+      - planetscale
+    container_name: backend
+    ports:
+      - '4000:4000'
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - /app/prisma
+  frontend:
+    container_name: frontend
+    ports:
+      - '3000:3000'
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+
+volumes: #define our mysql volume used above
+  mysql:
