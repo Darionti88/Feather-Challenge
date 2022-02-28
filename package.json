@@ -1,5 +1,4 @@
 {
-
     "scripts": {
         "start": "docker-compose --env-file ./backend/.env up",
         "build": "docker-compose build",
@@ -8,5 +7,4 @@
         "clean:volumes": "docker volume prune -f",
         "seed": "docker exec -it prisma npm run seed"
     }
-
 }
