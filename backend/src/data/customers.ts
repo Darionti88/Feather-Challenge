@@ -1,0 +1,80 @@
+export const customers = [
+  {
+    firstName: "Alan",
+    lastName: "Sullivam",
+    dateOfBirth: new Date("1987-11-1"),
+    policyId: 1234,
+  },
+  {
+    firstName: "Maribel",
+    lastName: "Combs",
+    dateOfBirth: new Date("1979-12-20"),
+    policyId: 1355,
+  },
+  {
+    firstName: "Elias ",
+    lastName: "Hopkins",
+    dateOfBirth: new Date("1956-7-13"),
+    policyId: 2455,
+  },
+  {
+    firstName: "Louise",
+    lastName: "Cole",
+    dateOfBirth: new Date("1990-9-5"),
+    policyId: 2565,
+  },
+  {
+    firstName: "Philip ",
+    lastName: "Crowthler",
+    dateOfBirth: new Date("1958-03-14"),
+    policyId: 3215,
+  },
+  {
+    firstName: "Anthony",
+    lastName: "Robles",
+    dateOfBirth: new Date("1985-10-11"),
+    policyId: 3245,
+  },
+  {
+    firstName: "Angela",
+    lastName: "Schmidt",
+    dateOfBirth: new Date("1969-12-31"),
+    policyId: 4324,
+  },
+  {
+    firstName: "Olaf",
+    lastName: "Scholz",
+    dateOfBirth: new Date("1966-7-10"),
+    policyId: 4777,
+  },
+  {
+    firstName: "Sara",
+    lastName: "Bryan",
+    dateOfBirth: new Date("2002-4-11"),
+    policyId: 4896,
+  },
+  {
+    firstName: "Tim",
+    lastName: "Huff",
+    dateOfBirth: new Date("1965-6-8"),
+    policyId: 5237,
+  },
+  {
+    firstName: "Lionel",
+    lastName: "Messi",
+    dateOfBirth: new Date("1987-6-8"),
+    policyId: 8567,
+  },
+  {
+    firstName: "Ruthie",
+    lastName: "Müller",
+    dateOfBirth: new Date("1987-3-31"),
+    policyId: 5512,
+  },
+  {
+    firstName: "Dawn",
+    lastName: "Pena",
+    dateOfBirth: new Date("1997-12-31"),
+    policyId: 8754,
+  },
+];

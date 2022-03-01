@@ -5,6 +5,9 @@
   "main": "src/index.ts",
   "license": "no license",
   "private": true,
+  "prisma": {
+    "seed": "ts-node src/data/seed.ts"
+  },
   "dependencies": {
     "@prisma/client": "3.9.2",
     "apollo-server": "^3.2.0",
