@@ -51,9 +51,17 @@ npx prisma studio
 
 Once inside the Project you can Sign Up a new user or login with the following credentials:
 
+```bash
 email: feather@feather.com
 
 password: feather
+```
+
+In case something went wrong and the DB is empty (it shouldn't since it is in production branch) you can run the following command and it will populate the DB:
+
+```bash
+npx prisma db seed
+```
 
 ## Known Issues:
 Not really proud of this, but the JWT for auth it's being stored in Local Storage. I tried to set a cookie based Auth but for some reason it was not working. You might see breadcrumbs of my attempt but those are signs for me to, if we get to do the feedback, ask you some questions that will help me understand better.
